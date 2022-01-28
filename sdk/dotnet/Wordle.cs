@@ -7,32 +7,32 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Wordle
 {
-    [XyzResourceType("xyz:index:Random")]
-    public partial class Random : Pulumi.CustomResource
+    [WordleResourceType("wordle:index:Wordle")]
+    public partial class Wordle : Pulumi.CustomResource
     {
-        [Output("length")]
-        public Output<int> Length { get; private set; } = null!;
-
         [Output("result")]
         public Output<string> Result { get; private set; } = null!;
 
+        [Output("word")]
+        public Output<string> Word { get; private set; } = null!;
+
 
         /// <summary>
-        /// Create a Random resource with the given unique name, arguments, and options.
+        /// Create a Wordle resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Random(string name, RandomArgs args, CustomResourceOptions? options = null)
-            : base("xyz:index:Random", name, args ?? new RandomArgs(), MakeResourceOptions(options, ""))
+        public Wordle(string name, WordleArgs args, CustomResourceOptions? options = null)
+            : base("wordle:index:Wordle", name, args ?? new WordleArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private Random(string name, Input<string> id, CustomResourceOptions? options = null)
-            : base("xyz:index:Random", name, null, MakeResourceOptions(options, id))
+        private Wordle(string name, Input<string> id, CustomResourceOptions? options = null)
+            : base("wordle:index:Wordle", name, null, MakeResourceOptions(options, id))
         {
         }
 
@@ -48,25 +48,25 @@ namespace Pulumi.Xyz
             return merged;
         }
         /// <summary>
-        /// Get an existing Random resource's state with the given name, ID, and optional extra
+        /// Get an existing Wordle resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static Random Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static Wordle Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Random(name, id, options);
+            return new Wordle(name, id, options);
         }
     }
 
-    public sealed class RandomArgs : Pulumi.ResourceArgs
+    public sealed class WordleArgs : Pulumi.ResourceArgs
     {
-        [Input("length", required: true)]
-        public Input<int> Length { get; set; } = null!;
+        [Input("word", required: true)]
+        public Input<string> Word { get; set; } = null!;
 
-        public RandomArgs()
+        public WordleArgs()
         {
         }
     }

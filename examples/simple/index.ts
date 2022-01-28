@@ -1,5 +1,5 @@
-import * as xyz from "@pulumi/xyz";
+import * as wordle from "@frielforreal/pulumi-wordle";
 
-const random = new xyz.Random("my-random", { length: 24 });
+const random = new wordle.Wordle("my-random", { word: "truth" });
 
 export const output = random.result;

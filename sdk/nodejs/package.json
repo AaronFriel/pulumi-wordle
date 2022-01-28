@@ -1,8 +1,9 @@
 {
-    "name": "@pulumi/xyz",
-    "version": "${VERSION}",
+    "name": "@frielforreal/pulumi-wordle",
+    "version": "0.0.1",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "install": "node scripts/install-pulumi-plugin.js resource wordle 0.0.1"
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0"

@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-xyz/provider/pkg/provider"
-	"github.com/pulumi/pulumi-xyz/provider/pkg/version"
+	"github.com/aaronfriel/pulumi-wordle/provider/pkg/provider"
+	"github.com/aaronfriel/pulumi-wordle/provider/pkg/version"
 )
 
-var providerName = "xyz"
+var providerName = "wordle"
 
 func main() {
 	provider.Serve(providerName, version.Version)

@@ -1,27 +1,27 @@
 {
-    "name": "xyz",
+    "name": "wordle",
     "version": "0.0.1",
     "resources": {
-        "xyz:index:Random": {
+        "wordle:index:Wordle": {
             "properties": {
-                "length": {
-                    "type": "integer"
+                "word": {
+                    "type": "string"
                 },
                 "result": {
                     "type": "string"
                 }
             },
             "required": [
-                "length",
+                "word",
                 "result"
             ],
             "inputProperties": {
-                "length": {
-                    "type": "integer"
+                "word": {
+                    "type": "string"
                 }
             },
             "requiredInputs": [
-                "length"
+                "word"
             ]
         }
     },
@@ -33,9 +33,10 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz"
+            "importBasePath": "github.com/aaronfriel/pulumi-wordle/sdk/go/wordle"
         },
         "nodejs": {
+            "packageName": "@frielforreal/pulumi-wordle",
             "dependencies": {
                 "@pulumi/pulumi": "^3.0.0"
             }
