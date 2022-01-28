@@ -21,34 +21,22 @@ const random = new wordle.Wordle("wordle", { word: "raise" });
 ```
 
 ```
-$ pulumi up
+$ PATH=../../bin/:$PATH pulumi up --skip-preview
 Please choose a stack, or create a new one: dev
-Previewing update (dev)
-
-View Live: https://app.pulumi.com/friel/simple/dev/previews/4cc0fa07-4d90-4c55-980c-e930400d11f1
-
-     Type                    Name        Plan       Info
-     pulumi:pulumi:Stack     simple-dev
- ~   └─ wordle:index:Wordle  my-random   update     [diff: ~word]
-
-Outputs:
-  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => output<string>
-
-Resources:
-    ~ 1 to update
-    1 unchanged
-
-Do you want to perform this update? yes
 Updating (dev)
 
-View Live: https://app.pulumi.com/friel/simple/dev/updates/12
+View Live: https://app.pulumi.com/friel/simple/dev/updates/3
 
      Type                    Name        Status      Info
-     pulumi:pulumi:Stack     simple-dev
- ~   └─ wordle:index:Wordle  my-random   updated     [diff: ~word]
+     pulumi:pulumi:Stack     simple-dev              2 warnings
+ ~   └─ wordle:index:Wordle  wordle      updated     [diff: ~word]
 
 Outputs:
-  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n🟫🟫🟫🟫🟫\n"
+  ~ output: [
+        [0]: "🟫🟩🟩🟨🟫"
+        [1]: "🟫🟩🟩🟩🟩"
+      + [2]: "🟩🟩🟩🟩🟩"
+    ]
 
 Resources:
     ~ 1 updated

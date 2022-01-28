@@ -166,14 +166,16 @@ func (k *wordleProvider) Create(ctx context.Context, req *pulumirpc.CreateReques
 		return nil, fmt.Errorf("expected input property 'word' to be a valid five letter word, got '%s'", word)
 	}
 
-	inputState, hasState := inputs["result"]
-	state := ""
+	inputState, hasState := inputs["state"]
+	state := []string{}
 	if hasState {
-		state = inputState.StringValue()
+		for _, v := range inputState.ArrayValue() {
+			state = append(state, v.StringValue())
+		}
 	}
 
 	result := renderResult(word, TodaysSolution())
-	state += result + "\n"
+	state = append(state, result)
 
 	outputs := map[string]interface{}{
 		"word":   word,
@@ -229,13 +231,15 @@ func (k *wordleProvider) Update(ctx context.Context, req *pulumirpc.UpdateReques
 	}
 
 	inputState, hasState := olds["result"]
-	state := ""
+	state := []string{}
 	if hasState {
-		state = inputState.StringValue()
+		for _, v := range inputState.ArrayValue() {
+			state = append(state, v.StringValue())
+		}
 	}
 
 	result := renderResult(word, TodaysSolution())
-	state += result + "\n"
+	state = append(state, result)
 
 	outputs := map[string]interface{}{
 		"word":   word,

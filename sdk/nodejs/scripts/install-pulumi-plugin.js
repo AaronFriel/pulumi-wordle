@@ -3,7 +3,7 @@ var childProcess = require("child_process");
 
 var args = process.argv.slice(2);
 
-if (args.indexOf("0.0.1") !== -1) {
+if (args.indexOf("0.0.2") !== -1) {
 	process.exit(0);
 }
 
