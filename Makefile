@@ -20,7 +20,6 @@ TESTPARALLELISM := 4
 
 ensure::
 	cd provider && go mod tidy
-	cd sdk && go mod tidy
 	cd tests && go mod tidy
 
 gen::
