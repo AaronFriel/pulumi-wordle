@@ -6,7 +6,19 @@ even know that you aren't deploying state of the art cloud managed NAT gateways!
 Every day the game resets, and the word list should be the same as the original Wordle's. But unlike
 the real Wordle this one gives you unlimited retries, just like deploying real infrastructure.
 
+## How to use
+
+This provider is not yet published, so you'll need to build this locally and put the bin dir on your PATH for examples to work!
+
+## Example
+
 An example of using the single resource defined in this example is in `examples/simple`.
+
+```ts
+import * as wordle from "@frielforreal/pulumi-wordle";
+
+const random = new wordle.Wordle("wordle", { word: "raise" });
+```
 
 ```
 $ pulumi up
