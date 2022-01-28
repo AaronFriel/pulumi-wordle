@@ -1,20 +1,49 @@
-# xyz Pulumi Provider
+# Wordle Pulumi Provider
 
-This repo is a boilerplate showing how to create a native Pulumi provider.  You can search-replace `xyz` with the name of your desired provider as a starting point for creating a provider that manages resources in the target cloud.
+Play Wordle while writing infrastructure as code. If you're working from an office, your boss won't
+even know that you aren't deploying state of the art cloud managed NAT gateways!
 
-Most of the code for the provider implementation is in `pkg/provider/provider.go`.  
+Every day the game resets, and the word list should be the same as the original Wordle's. But unlike
+the real Wordle this one gives you unlimited retries, just like deploying real infrastructure.
 
 An example of using the single resource defined in this example is in `examples/simple`.
 
-A code generator is available which generates SDKs in TypeScript, Python, Go and .NET which are also checked in to the `sdk` folder.  The SDKs are generated from a schema in `provider/cmd/pulumi-resource-xyz/schema.json`.  This file should be kept aligned with the resources, functions and types supported by the provider implementation.
+```
+$ pulumi up
+Please choose a stack, or create a new one: dev
+Previewing update (dev)
 
-Note that the generated provider plugin (`pulumi-resource-xyz`) must be on your `PATH` to be used by Pulumi deployments.  If creating a provider for distribution to other users, you should ensure they install this plugin to their `PATH`.
+View Live: https://app.pulumi.com/friel/simple/dev/previews/4cc0fa07-4d90-4c55-980c-e930400d11f1
 
-## Pre-requisites
+     Type                    Name        Plan       Info
+     pulumi:pulumi:Stack     simple-dev
+ ~   └─ wordle:index:Wordle  my-random   update     [diff: ~word]
 
-Install the `pulumictl` cli from the [releases](https://github.com/pulumi/pulumictl/releases) page or follow the [install instructions](https://github.com/pulumi/pulumictl#installation)
+Outputs:
+  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => output<string>
 
-> NB: Usage of `pulumictl` is optional. If not using it, hard code the version in the [Makefile](Makefile) of when building explicitly pass version as `VERSION=0.0.1 make build`
+Resources:
+    ~ 1 to update
+    1 unchanged
+
+Do you want to perform this update? yes
+Updating (dev)
+
+View Live: https://app.pulumi.com/friel/simple/dev/updates/12
+
+     Type                    Name        Status      Info
+     pulumi:pulumi:Stack     simple-dev
+ ~   └─ wordle:index:Wordle  my-random   updated     [diff: ~word]
+
+Outputs:
+  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n🟫🟫🟫🟫🟫\n"
+
+Resources:
+    ~ 1 updated
+    1 unchanged
+
+Duration: 2s
+```
 
 ## Build and Test
 
@@ -24,7 +53,7 @@ $ make build install
 
 # test
 $ cd examples/simple
-$ yarn link @pulumi/xyz
+$ yarn link @frielforreal/pulumi-wordle
 $ yarn install
 $ pulumi stack init test
 $ pulumi up

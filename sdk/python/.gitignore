@@ -1,0 +1,3 @@
+build/
+dist/
+pulumi_wordle.egg-info/
