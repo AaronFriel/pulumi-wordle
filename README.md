@@ -49,7 +49,7 @@ Duration: 2s
 
 ```bash
 # build and install the resource provider plugin
-$ make build install
+$ make ensure build install
 
 # test
 $ cd examples/simple
