@@ -22,5 +22,6 @@ import (
 var providerName = "wordle"
 
 func main() {
+
 	provider.Serve(providerName, version.Version)
 }

@@ -12,8 +12,11 @@ namespace Pulumi.Wordle
     [WordleResourceType("wordle:index:Wordle")]
     public partial class Wordle : Pulumi.CustomResource
     {
+        [Output("date")]
+        public Output<string> Date { get; private set; } = null!;
+
         [Output("result")]
-        public Output<string> Result { get; private set; } = null!;
+        public Output<ImmutableArray<string>> Result { get; private set; } = null!;
 
         [Output("word")]
         public Output<string> Word { get; private set; } = null!;
@@ -41,6 +44,7 @@ namespace Pulumi.Wordle
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

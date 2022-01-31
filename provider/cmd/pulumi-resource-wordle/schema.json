@@ -1,18 +1,35 @@
 {
     "name": "wordle",
-    "version": "0.0.1",
+    "displayName": "Wordle",
+    "version": "0.0.3",
+    "description": "Stand up Wordle while you stand up infrastructure",
+    "keywords": ["pulumi", "wordle", "category/Fun", "category/Utility"],
+    "homepage": "https://github.com/aaronfriel/pulumi-wordle",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/aaronfriel/pulumi-wordle",
+    "pluginDownloadURL": "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}",
+    "publisher": "Aaron Friel",
+    "attribution": "Susan Evans, creator of logo; Josh Wardle, creator of wordle",
+
     "resources": {
         "wordle:index:Wordle": {
             "properties": {
                 "word": {
                     "type": "string"
                 },
-                "result": {
+                "date": {
                     "type": "string"
+                },
+                "result": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "required": [
                 "word",
+                "date",
                 "result"
             ],
             "inputProperties": {

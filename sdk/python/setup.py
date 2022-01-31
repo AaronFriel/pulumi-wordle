@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'wordle', PLUGIN_VERSION])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'wordle', PLUGIN_VERSION, '--server', 'https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
@@ -39,11 +39,18 @@ def readme():
 
 setup(name='pulumi_wordle',
       version=VERSION,
+      description="Stand up Wordle while you stand up infrastructure",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
           'install': InstallPluginCommand,
       },
+      keywords='pulumi wordle category/Fun category/Utility',
+      url='https://github.com/aaronfriel/pulumi-wordle',
+      project_urls={
+          'Repository': 'https://github.com/aaronfriel/pulumi-wordle'
+      },
+      license='Apache-2.0',
       packages=find_packages(),
       package_data={
           'pulumi_wordle': [

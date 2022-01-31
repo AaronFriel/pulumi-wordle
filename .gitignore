@@ -10,3 +10,9 @@ Pulumi.*.yaml
 yarn.lock
 ci-scripts
 /nuget/
+
+
+# for goreleaser
+/goreleaser
+/package.json
+/PulumiPlugin.yaml

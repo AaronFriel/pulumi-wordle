@@ -16,7 +16,11 @@ SCHEMA_FILE     := provider/cmd/pulumi-resource-wordle/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
+
 TESTPARALLELISM := 4
+
+PULUMI_LOCAL_NUGET ?= $(WORKING_DIR)/sdk/dotnet/bin/Debug
+export PULUMI_LOCAL_NUGET
 
 ensure::
 	cd provider && go mod tidy
@@ -26,7 +30,7 @@ ensure::
 gen::
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
-provider::
+provider:: gen
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
@@ -78,9 +82,11 @@ only_build:: build
 
 lint::
 	for DIR in "provider" "sdk" "tests" ; do \
-		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
+		cd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && cd .. \
 	done
 
+test::
+	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
 
 install:: install_nodejs_sdk install_dotnet_sdk
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin

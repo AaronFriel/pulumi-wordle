@@ -72,6 +72,8 @@ class Wordle(pulumi.CustomResource):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
         if opts.version is None:
             opts.version = _utilities.get_version()
+        if opts.plugin_download_url is None:
+            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
@@ -80,6 +82,7 @@ class Wordle(pulumi.CustomResource):
             if word is None and not opts.urn:
                 raise TypeError("Missing required property 'word'")
             __props__.__dict__["word"] = word
+            __props__.__dict__["date"] = None
             __props__.__dict__["result"] = None
         super(Wordle, __self__).__init__(
             'wordle:index:Wordle',
@@ -103,13 +106,19 @@ class Wordle(pulumi.CustomResource):
 
         __props__ = WordleArgs.__new__(WordleArgs)
 
+        __props__.__dict__["date"] = None
         __props__.__dict__["result"] = None
         __props__.__dict__["word"] = None
         return Wordle(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter
-    def result(self) -> pulumi.Output[str]:
+    def date(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "date")
+
+    @property
+    @pulumi.getter
+    def result(self) -> pulumi.Output[Sequence[str]]:
         return pulumi.get(self, "result")
 
     @property

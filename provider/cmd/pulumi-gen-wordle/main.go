@@ -159,6 +159,7 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			panic(err)
 		}
+		/* #nosec G306 this is intended to be world-readable */
 		err := ioutil.WriteFile(path, contents, 0644)
 		if err != nil {
 			panic(err)
@@ -187,6 +188,7 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
 		panic(err)
 	}
+	/* #nosec G306 -- this is intended to be world-readable */
 	err := ioutil.WriteFile(outPath, contents, 0644)
 	if err != nil {
 		panic(err)

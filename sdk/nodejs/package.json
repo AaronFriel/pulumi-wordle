@@ -1,9 +1,18 @@
 {
     "name": "@frielforreal/pulumi-wordle",
-    "version": "0.0.2",
+    "version": "${VERSION}",
+    "keywords": [
+        "pulumi",
+        "wordle",
+        "category/Fun",
+        "category/Utility"
+    ],
+    "homepage": "https://github.com/aaronfriel/pulumi-wordle",
+    "repository": "https://github.com/aaronfriel/pulumi-wordle",
+    "license": "Apache-2.0",
     "scripts": {
         "build": "tsc",
-        "install": "node scripts/install-pulumi-plugin.js resource wordle 0.0.2"
+        "install": "node scripts/install-pulumi-plugin.js resource wordle ${VERSION}"
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0"
@@ -12,6 +21,7 @@
         "typescript": "^4.3.5"
     },
     "pulumi": {
-        "resource": true
+        "resource": true,
+        "pluginDownloadURL": "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}"
     }
 }

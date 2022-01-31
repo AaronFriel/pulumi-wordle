@@ -31,7 +31,8 @@ export class Wordle extends pulumi.CustomResource {
         return obj['__pulumiType'] === Wordle.__pulumiType;
     }
 
-    public /*out*/ readonly result!: pulumi.Output<string>;
+    public /*out*/ readonly date!: pulumi.Output<string>;
+    public /*out*/ readonly result!: pulumi.Output<string[]>;
     public readonly word!: pulumi.Output<string>;
 
     /**
@@ -49,8 +50,10 @@ export class Wordle extends pulumi.CustomResource {
                 throw new Error("Missing required property 'word'");
             }
             resourceInputs["word"] = args ? args.word : undefined;
+            resourceInputs["date"] = undefined /*out*/;
             resourceInputs["result"] = undefined /*out*/;
         } else {
+            resourceInputs["date"] = undefined /*out*/;
             resourceInputs["result"] = undefined /*out*/;
             resourceInputs["word"] = undefined /*out*/;
         }

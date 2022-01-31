@@ -14,8 +14,9 @@ import (
 type Wordle struct {
 	pulumi.CustomResourceState
 
-	Result pulumi.StringOutput `pulumi:"result"`
-	Word   pulumi.StringOutput `pulumi:"word"`
+	Date   pulumi.StringOutput      `pulumi:"date"`
+	Result pulumi.StringArrayOutput `pulumi:"result"`
+	Word   pulumi.StringOutput      `pulumi:"word"`
 }
 
 // NewWordle registers a new resource with the given unique name, arguments, and options.
@@ -28,6 +29,7 @@ func NewWordle(ctx *pulumi.Context,
 	if args.Word == nil {
 		return nil, errors.New("invalid value for required argument 'Word'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Wordle
 	err := ctx.RegisterResource("wordle:index:Wordle", name, args, &resource, opts...)
 	if err != nil {

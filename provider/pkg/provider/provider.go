@@ -23,6 +23,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -30,6 +31,8 @@ import (
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 )
+
+const WordleResourceType tokens.Type = "wordle:index:Wordle"
 
 type wordleProvider struct {
 	host    *provider.HostClient
@@ -47,27 +50,37 @@ func makeProvider(host *provider.HostClient, name, version string) (pulumirpc.Re
 }
 
 // Call dynamically executes a method in the provider associated with a component resource.
-func (k *wordleProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+func (k *wordleProvider) Call(
+	ctx context.Context,
+	req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
 // Construct creates a new component resource.
-func (k *wordleProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
+func (k *wordleProvider) Construct(
+	ctx context.Context,
+	req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
 }
 
 // CheckConfig validates the configuration for this provider.
-func (k *wordleProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (k *wordleProvider) CheckConfig(
+	ctx context.Context,
+	req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *wordleProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *wordleProvider) DiffConfig(
+	ctx context.Context,
+	req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	return &pulumirpc.DiffResponse{}, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
-func (k *wordleProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
+func (k *wordleProvider) Configure(
+	_ context.Context,
+	req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 	return &pulumirpc.ConfigureResponse{}, nil
 }
 
@@ -79,7 +92,9 @@ func (k *wordleProvider) Invoke(_ context.Context, req *pulumirpc.InvokeRequest)
 
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
-func (k *wordleProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
+func (k *wordleProvider) StreamInvoke(
+	req *pulumirpc.InvokeRequest,
+	server pulumirpc.ResourceProvider_StreamInvokeServer) error {
 	tok := req.GetTok()
 	return fmt.Errorf("unknown StreamInvoke token '%s'", tok)
 }
@@ -93,7 +108,7 @@ func (k *wordleProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server pulum
 func (k *wordleProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
 	return &pulumirpc.CheckResponse{Inputs: req.News, Failures: nil}, nil
@@ -103,7 +118,7 @@ func (k *wordleProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest)
 func (k *wordleProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
 
@@ -148,11 +163,14 @@ func wordInList(word string) bool {
 func (k *wordleProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
 
-	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
+	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -166,19 +184,12 @@ func (k *wordleProvider) Create(ctx context.Context, req *pulumirpc.CreateReques
 		return nil, fmt.Errorf("expected input property 'word' to be a valid five letter word, got '%s'", word)
 	}
 
-	inputState, hasState := inputs["state"]
-	state := []string{}
-	if hasState {
-		for _, v := range inputState.ArrayValue() {
-			state = append(state, v.StringValue())
-		}
-	}
-
 	result := renderResult(word, TodaysSolution())
-	state = append(state, result)
+	state := []string{result}
 
 	outputs := map[string]interface{}{
 		"word":   word,
+		"date":   todaysDate(),
 		"result": state,
 	}
 
@@ -199,17 +210,61 @@ func (k *wordleProvider) Create(ctx context.Context, req *pulumirpc.CreateReques
 func (k *wordleProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
-	return nil, status.Error(codes.Unimplemented, "Read is not yet implemented for 'wordle:index:Wordle'")
+
+	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
+	if err != nil {
+		return nil, err
+	}
+	if !inputs["word"].IsString() {
+		return nil, fmt.Errorf("expected input property 'word' of type 'string' but got '%s'", inputs["word"].TypeString())
+	}
+	word := inputs["word"].StringValue()
+	if !wordInList(word) {
+		return nil, fmt.Errorf("expected input property 'word' to be a valid five letter word, got '%s'", word)
+	}
+	inputDate, hasDate := inputs["date"]
+	var date string
+	if hasDate {
+		if inputDate.IsString() {
+			date = inputDate.StringValue()
+		}
+	}
+
+	inputState, hasState := inputs["result"]
+	state := []string{}
+	if date == todaysDate() {
+		if hasState {
+			for _, v := range inputState.ArrayValue() {
+				state = append(state, v.StringValue())
+			}
+		}
+	}
+
+	outputs := map[string]interface{}{
+		"word":   word,
+		"date":   date,
+		"result": state,
+	}
+
+	outputProperties, err := plugin.MarshalProperties(
+		resource.NewPropertyMapFromMap(outputs),
+		plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true},
+	)
+
+	return &pulumirpc.ReadResponse{
+		Id:         fmt.Sprintf("wordle-%s", todaysDate()),
+		Properties: outputProperties,
+	}, nil
 }
 
 // Update updates an existing resource with new values.
 func (k *wordleProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
 
@@ -230,11 +285,21 @@ func (k *wordleProvider) Update(ctx context.Context, req *pulumirpc.UpdateReques
 		return nil, fmt.Errorf("expected input property 'word' to be a valid five letter word, got '%s'", word)
 	}
 
+	inputDate, hasDate := olds["date"]
+	var date string
+	if hasDate {
+		if inputDate.IsString() {
+			date = inputDate.StringValue()
+		}
+	}
+
 	inputState, hasState := olds["result"]
 	state := []string{}
-	if hasState {
-		for _, v := range inputState.ArrayValue() {
-			state = append(state, v.StringValue())
+	if date == todaysDate() {
+		if hasState {
+			for _, v := range inputState.ArrayValue() {
+				state = append(state, v.StringValue())
+			}
 		}
 	}
 
@@ -263,7 +328,7 @@ func (k *wordleProvider) Update(ctx context.Context, req *pulumirpc.UpdateReques
 func (k *wordleProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
-	if ty != "wordle:index:Wordle" {
+	if ty != WordleResourceType {
 		return nil, fmt.Errorf("unknown resource type '%s'", ty)
 	}
 
@@ -272,14 +337,18 @@ func (k *wordleProvider) Delete(ctx context.Context, req *pulumirpc.DeleteReques
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
-func (k *wordleProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
+func (k *wordleProvider) GetPluginInfo(
+	context.Context,
+	*pbempty.Empty) (*pulumirpc.PluginInfo, error) {
 	return &pulumirpc.PluginInfo{
 		Version: k.version,
 	}, nil
 }
 
 // GetSchema returns the JSON-serialized schema for the provider.
-func (k *wordleProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+func (k *wordleProvider) GetSchema(
+	ctx context.Context,
+	req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
 	return &pulumirpc.GetSchemaResponse{}, nil
 }
 

@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="460" height="300" src="pulumi-wordle-logo-transparent.svg">
+</p>
+
 # Wordle Pulumi Provider
 
 Play Wordle while writing infrastructure as code. If you're working from an office, your boss won't
@@ -12,7 +16,7 @@ This provider is not yet published, so you'll need to build this locally and put
 
 ## Example
 
-An example of using the single resource defined in this example is in `examples/simple`.
+An example of using the single resource defined in this example is in `examples/ts`.
 
 ```ts
 import * as wordle from "@frielforreal/pulumi-wordle";
@@ -21,34 +25,22 @@ const random = new wordle.Wordle("wordle", { word: "raise" });
 ```
 
 ```
-$ pulumi up
+$ PATH=../../bin/:$PATH pulumi up --skip-preview
 Please choose a stack, or create a new one: dev
-Previewing update (dev)
-
-View Live: https://app.pulumi.com/friel/simple/dev/previews/4cc0fa07-4d90-4c55-980c-e930400d11f1
-
-     Type                    Name        Plan       Info
-     pulumi:pulumi:Stack     simple-dev
- ~   └─ wordle:index:Wordle  my-random   update     [diff: ~word]
-
-Outputs:
-  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => output<string>
-
-Resources:
-    ~ 1 to update
-    1 unchanged
-
-Do you want to perform this update? yes
 Updating (dev)
 
-View Live: https://app.pulumi.com/friel/simple/dev/updates/12
+View Live: https://app.pulumi.com/friel/ts/dev/updates/3
 
      Type                    Name        Status      Info
-     pulumi:pulumi:Stack     simple-dev
- ~   └─ wordle:index:Wordle  my-random   updated     [diff: ~word]
+     pulumi:pulumi:Stack     simple-dev              2 warnings
+ ~   └─ wordle:index:Wordle  wordle      updated     [diff: ~word]
 
 Outputs:
-  ~ output: "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n" => "🟫🟫🟨🟫🟫\n🟫🟫🟫🟫🟫\n🟫🟫🟫🟫🟫\n"
+  ~ output: [
+        [0]: "🟫🟩🟩🟨🟫"
+        [1]: "🟫🟩🟩🟩🟩"
+      + [2]: "🟩🟩🟩🟩🟩"
+    ]
 
 Resources:
     ~ 1 updated
@@ -64,11 +56,11 @@ Duration: 2s
 $ make build install
 
 # test
-$ cd examples/simple
+$ cd examples/ts
 $ yarn link @frielforreal/pulumi-wordle
 $ yarn install
 $ pulumi stack init test
-$ pulumi up
+$ PATH=../../bin:$PATH pulumi up
 ```
 
 ## References

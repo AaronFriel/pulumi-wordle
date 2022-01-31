@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="460" height="300" src="pulumi-wordle-logo-transparent.svg">
+</p>
+
 # Wordle Pulumi Provider
 
 Play Wordle while writing infrastructure as code. If you're working from an office, your boss won't
@@ -12,7 +16,7 @@ This provider is not yet published, so you'll need to build this locally and put
 
 ## Example
 
-An example of using the single resource defined in this example is in `examples/simple`.
+An example of using the single resource defined in this example is in `examples/ts`.
 
 ```ts
 import * as wordle from "@frielforreal/pulumi-wordle";
@@ -25,7 +29,7 @@ $ PATH=../../bin/:$PATH pulumi up --skip-preview
 Please choose a stack, or create a new one: dev
 Updating (dev)
 
-View Live: https://app.pulumi.com/friel/simple/dev/updates/3
+View Live: https://app.pulumi.com/friel/ts/dev/updates/3
 
      Type                    Name        Status      Info
      pulumi:pulumi:Stack     simple-dev              2 warnings
@@ -52,11 +56,11 @@ Duration: 2s
 $ make build install
 
 # test
-$ cd examples/simple
+$ cd examples/ts
 $ yarn link @frielforreal/pulumi-wordle
 $ yarn install
 $ pulumi stack init test
-$ pulumi up
+$ PATH=../../bin:$PATH pulumi up
 ```
 
 ## References

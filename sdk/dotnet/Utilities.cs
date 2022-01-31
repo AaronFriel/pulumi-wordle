@@ -58,6 +58,7 @@ namespace Pulumi.Wordle
         {
             InvokeOptions dst = src ?? new InvokeOptions{};
             dst.Version = src?.Version ?? Version;
+            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}";
             return dst;
         }
 

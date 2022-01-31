@@ -3,11 +3,11 @@ var childProcess = require("child_process");
 
 var args = process.argv.slice(2);
 
-if (args.indexOf("0.0.2") !== -1) {
+if (args.indexOf("${VERSION}") !== -1) {
 	process.exit(0);
 }
 
-var res = childProcess.spawnSync("pulumi", ["plugin", "install"].concat(args), {
+var res = childProcess.spawnSync("pulumi", ["plugin", "install", "--server", "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}"].concat(args), {
     stdio: ["ignore", "inherit", "inherit"]
 });
 

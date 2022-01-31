@@ -1,3 +1,3 @@
-// Package wordle exports types, functions, subpackages for provisioning wordle resources.
+// Stand up Wordle while you stand up infrastructure
 //
 package wordle

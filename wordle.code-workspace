@@ -4,6 +4,12 @@
 			"path": "provider"
 		},
 		{
+			"path": "examples"
+		},
+		{
+			"path": "sdk"
+		},
+		{
 			"path": "."
 		}
 	],
@@ -16,6 +22,8 @@
 			"**/.DS_Store": true,
 			"**/Thumbs.db": true,
 			"provider": true,
+			"examples": true,
+			"sdk": true,
 		}
   }
 }
