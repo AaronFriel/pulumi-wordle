@@ -10,6 +10,7 @@
     "pluginDownloadURL": "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}",
     "publisher": "Aaron Friel",
     "attribution": "Susan Evans, creator of logo; Josh Wardle, creator of wordle",
+    "logoUrl": "https://raw.githubusercontent.com/AaronFriel/pulumi-wordle/dafcef5e8bcf0ab4f3f0d8afc0020d05bb9b3994/pulumi-wordle-logo-transparent.svg",
 
     "resources": {
         "wordle:index:Wordle": {
