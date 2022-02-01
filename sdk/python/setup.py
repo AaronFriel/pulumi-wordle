@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'wordle', PLUGIN_VERSION, '--server', 'https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'wordle', PLUGIN_VERSION, '--server', 'https://github.com/aaronfriel/pulumi-wordle/releases/download/v${VERSION}'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""

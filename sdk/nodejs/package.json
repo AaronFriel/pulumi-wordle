@@ -22,6 +22,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/muhlba91/pulumi-proxmoxve/releases/download/v${VERSION}"
+        "pluginDownloadURL": "https://github.com/aaronfriel/pulumi-wordle/releases/download/v${VERSION}"
     }
 }
