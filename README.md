@@ -12,7 +12,13 @@ the real Wordle this one gives you unlimited retries, just like deploying real i
 
 ## How to use
 
-This provider is not yet published, so you'll need to build this locally and put the bin dir on your PATH for examples to work!
+TypeScript/JavaScript via npm: [`@frielforreal/pulumi-wordle`](https://www.npmjs.com/package/@frielforreal/pulumi-wordle)
+
+Python via Pypi: [`pulumi-wordle`](https://pypi.org/project/pulumi-wordle/)
+
+Go: `github.com/aaronfriel/pulumi/sdk/go/wordle`
+
+C#/.NET via Nuget: [`Pulumi.Wordle`](https://www.nuget.org/packages/Pulumi.Wordle/)
 
 ## Example
 
