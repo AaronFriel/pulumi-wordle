@@ -20,12 +20,6 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
-      with:
-        path: ci-scripts
-        repository: jaxxstorm/scripts
-        ref: third_party
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags || true
     - name: Install Go
@@ -67,7 +61,7 @@ jobs:
     - name: Build SDK
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
-      run: ./ci-scripts/ci/check-worktree-is-clean
+      run: ./scripts/check-worktree-is-clean.sh
     - name: Compress SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }}
         .
@@ -98,12 +92,6 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
-      with:
-        path: ci-scripts
-        repository: jaxxstorm/scripts
-        ref: third_party
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags || true
     - name: Install Go
@@ -201,12 +189,6 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
-      with:
-        path: ci-scripts
-        repository: jaxxstorm/scripts
-        ref: third_party
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags || true
     - name: Install Go
@@ -257,7 +239,7 @@ jobs:
     - env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       name: Publish SDKs
-      run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
+      run: ./scripts/publish-packages.sh ${{ github.workspace }}
     strategy:
       fail-fast: true
       matrix:
@@ -276,12 +258,6 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
-      with:
-        path: ci-scripts
-        repository: jaxxstorm/scripts
-        ref: third_party
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags || true
     - name: Install Go
