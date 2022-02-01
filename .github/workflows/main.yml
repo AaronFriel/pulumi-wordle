@@ -355,7 +355,7 @@ name: main
 "on":
   push:
     branches:
-    - main
+    - dev
     paths-ignore:
     - CHANGELOG.md
     tags-ignore:
