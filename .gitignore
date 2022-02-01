@@ -10,7 +10,7 @@ Pulumi.*.yaml
 yarn.lock
 ci-scripts
 /nuget/
-
+sdk/dotnet/version.txt
 
 # for goreleaser
 /goreleaser
