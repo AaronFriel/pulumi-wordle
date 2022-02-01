@@ -5,8 +5,6 @@
     <Authors>Aaron Friel</Authors>
     <Company>Aaron Friel</Company>
     <Description>Stand up Wordle while you stand up infrastructure</Description>
-    <Version>0.0.3</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/aaronfriel/pulumi-wordle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/aaronfriel/pulumi-wordle</RepositoryUrl>
