@@ -5,7 +5,7 @@
         "@types/node": "latest"
     },
     "dependencies": {
-        "@frielforreal/pulumi-wordle": "^0.2.0",
+        "@frielforreal/pulumi-wordle": "latest",
         "@pulumi/pulumi": "latest"
     }
 }

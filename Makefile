@@ -52,14 +52,18 @@ go_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
 nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
+nodejs_sdk:: TMPDIR  := $(shell mktemp -d)
 nodejs_sdk::
 	rm -rf sdk/nodejs
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
+		cp -r ./* ${TMPDIR} && \
 		yarn install && \
-		yarn run tsc
-	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+		yarn run tsc && \
+		cp -r ${TMPDIR}/* bin
+	cd ${PACKDIR}/nodejs/bin && \
+		npm version ${VERSION}
+	rm -rf ${TMPDIR}
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::
