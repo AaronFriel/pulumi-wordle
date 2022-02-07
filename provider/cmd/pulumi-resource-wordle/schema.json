@@ -1,7 +1,6 @@
 {
     "name": "wordle",
     "displayName": "Wordle",
-    "version": "0.2.1",
     "description": "Stand up Wordle while you stand up infrastructure",
     "keywords": ["pulumi", "wordle", "category/Fun", "category/Utility"],
     "homepage": "https://github.com/aaronfriel/pulumi-wordle",

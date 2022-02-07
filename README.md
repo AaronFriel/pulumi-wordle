@@ -12,6 +12,9 @@ the real Wordle this one gives you unlimited retries, just like deploying real i
 
 ## How to use
 
+You will need Pulumi 3.24.1 or greater, check which version you have via `pulumi version` or [get
+Pulumi for your platform](https://www.pulumi.com/docs/get-started/install/).
+
 TypeScript/JavaScript via npm: [`@frielforreal/pulumi-wordle`](https://www.npmjs.com/package/@frielforreal/pulumi-wordle)
 
 Python via Pypi: [`pulumi-wordle`](https://pypi.org/project/pulumi-wordle/)
@@ -62,7 +65,7 @@ Duration: 2s
 $ make ensure build install
 
 # test
-$ cd examples/ts
+$ cd examples/simple
 $ yarn link @frielforreal/pulumi-wordle
 $ yarn install
 $ pulumi stack init test
