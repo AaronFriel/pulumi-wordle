@@ -1,0 +1,3 @@
+name: wordle-csharp
+runtime: dotnet
+description: A simple C# Wordle example

@@ -3,14 +3,11 @@ module github.com/aaronfriel/pulumi-wordle/examples/go/server
 go 1.17
 
 require (
-	github.com/aaronfriel/pulumi-wordle/sdk v0.0.0
 	github.com/pulumi/pulumi/sdk/v3 v3.24.1
 )
 
-replace github.com/aaronfriel/pulumi-wordle/sdk => ../../../sdk
-
 require (
-	github.com/Microsoft/go-winio v0.5.0 // indirect
+	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/djherbis/times v1.5.0 // indirect
@@ -44,9 +41,9 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/crypto v0.0.0-20220131195533-30dcbda58838 // indirect
+	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
-	golang.org/x/sys v0.0.0-20220204135822-1c1b9b1eba6a // indirect
+	golang.org/x/sys v0.0.0-20220207234003-57398862261d // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20220207185906-7721543eae58 // indirect

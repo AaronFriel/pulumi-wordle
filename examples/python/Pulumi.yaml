@@ -1,0 +1,6 @@
+name: python-wordle
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A simple Python Wordle program

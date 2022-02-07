@@ -1,0 +1,3 @@
+name: wordle-typescript
+runtime: nodejs
+description: A simple TypeScript Wordle example

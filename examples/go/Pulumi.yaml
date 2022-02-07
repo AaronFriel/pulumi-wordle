@@ -1,0 +1,3 @@
+name: wordle-go
+runtime: go
+description: A simple Go Wordle example
