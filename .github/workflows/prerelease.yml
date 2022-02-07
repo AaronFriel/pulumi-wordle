@@ -11,6 +11,7 @@ env:
   PULUMI_TEST_OWNER: "AaronFriel"
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   PYPI_USERNAME: "__token__"
+  IS_PRERELEASE: "true"
   TRAVIS_OS_NAME: linux
 jobs:
   build_sdk:

@@ -11,6 +11,7 @@ env:
   PULUMI_TEST_OWNER: "AaronFriel"
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   PYPI_USERNAME: "__token__"
+  IS_PRERELEASE: "true"
   TRAVIS_OS_NAME: linux
 jobs:
   build_sdk:
@@ -168,7 +169,7 @@ jobs:
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2
       with:
-        args: -p 10 -f .goreleaser.prerelease.yml --rm-dist --skip-validate --timeout
+        args: -p 10 -f .goreleaser.prerelease.yml --rm-dist --skip-release --skip-validate --timeout
           60m0s
         version: latest
     strategy:
