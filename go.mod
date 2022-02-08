@@ -1,10 +1,12 @@
-module github.com/aaronfriel/pulumi-wordle/provider
+module github.com/aaronfriel/pulumi-wordle
 
 go 1.17
 
 require (
+	github.com/blang/semver v3.5.1+incompatible
 	github.com/golang/protobuf v1.5.2
-	github.com/pulumi/pulumi/pkg/v3 v3.24.2-0.20220208103835-ace012e2fc2a
+	github.com/pkg/errors v0.9.1
+	github.com/pulumi/pulumi/pkg/v3 v3.24.1
 	github.com/pulumi/pulumi/sdk/v3 v3.24.1
 	google.golang.org/grpc v1.44.0
 )
@@ -17,7 +19,6 @@ replace (
 require (
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg v1.0.0 // indirect
-	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/cheggaaa/pb v1.0.18 // indirect
 	github.com/djherbis/times v1.2.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
@@ -42,7 +43,6 @@ require (
 	github.com/opentracing/basictracer-go v1.0.0 // indirect
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/pgavlin/goldmark v1.1.33-0.20200616210433-b5eb04559386 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94 // indirect

@@ -26,7 +26,7 @@ func getGoBaseOptions(t *testing.T) integration.ProgramTestOptions {
 	baseGo := base.With(integration.ProgramTestOptions{
 		ExpectRefreshChanges: false,
 		Dependencies: []string{
-			"github.com/aaronfriel/pulumi-wordle/sdk",
+			"github.com/aaronfriel/pulumi-wordle",
 		},
 	})
 
