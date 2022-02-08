@@ -3,11 +3,9 @@ module github.com/aaronfriel/pulumi-wordle/examples/go/server
 go 1.17
 
 require (
-	github.com/aaronfriel/pulumi-wordle/sdk v0.0.0
+	github.com/aaronfriel/pulumi-wordle/sdk v0.0.0-20220207234823-b7d9ec6a9881
 	github.com/pulumi/pulumi/sdk/v3 v3.24.1
 )
-
-replace github.com/aaronfriel/pulumi-wordle/sdk => ../../../sdk
 
 require (
 	github.com/Microsoft/go-winio v0.5.0 // indirect
